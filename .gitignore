@@ -1,0 +1,18 @@
+# ignore all logs
+*.log
+
+# ignore all node module packages
+backend/node_modules
+frontend/node_modules
+node_modules
+
+# ignoring all .env file
+*.env
+*.env.*
+
+# ignore files from frontend package
+frontend/out
+frontend/dist
+frontend/node_modules
+frontend/.vscode-test/
+frontend/*.vsix

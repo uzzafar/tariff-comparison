@@ -1,0 +1,33 @@
+<div class="flex flex-col items-center">
+    <section class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+      <h1 class="text-3xl font-bold mb-4 text-gray-800">Electricity Tariff Comparison</h1>
+      
+      <div *ngIf="isLoading" class="text-center mt-4">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    
+      <div *ngIf="isError" class="text-center mt-4 text-red-500">
+        An error occurred. Please try again later.
+      </div>
+      <!-- User Input Form -->
+      <div class="mb-6">
+        <label for="consumption" class="block text-gray-700 font-semibold">Annual Consumption (kWh)</label>
+        <input type="number" id="consumption" [(ngModel)]="consumption" class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300" (keydown.enter)="calculatePrices()"/>
+      </div>
+      
+      <button class="w-full py-2 px-4 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-lg transition duration-300 ease-in-out transform hover:scale-105" (click)="calculatePrices()" [disabled]="!(consumption > 0)">Calculate Prices</button>
+      
+      <!-- Results Section -->
+      <div class="mt-6" *ngIf="tariffPrices.length > 0">
+        <h2 class="text-xl font-semibold mb-2">Calculated Prices</h2>
+        <ul class="space-y-2">
+          <li *ngFor="let tariff of tariffPrices" class="bg-white rounded-lg p-4 shadow-md">
+            <p class="text-lg font-semibold text-gray-800">{{ tariff.name }}</p>
+            <p class="text-2xl font-bold text-teal-600">{{ tariff.annualCost | currency:'EUR':'symbol':'1.2-2' }}/year</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </div>
